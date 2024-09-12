@@ -24,10 +24,23 @@ public class HomeWork {
      * @param list односвязный список
      * @param pred условие
      * @param <T>  - тип хранимых значений в списке
-     * @return количество узлов от 0 до N, где N позиция на которой первый раз условие вернуло fals
+     * @return количество узлов от 0 до N, где N позиция на которой первый раз условие вернуло false
      */
     public <T> int partitionBy(Node<T> list, Predicate<T> pred) {
-        //TODO реализовать метод
+        if (list == null) {
+           throw new IllegalArgumentException("Empty collection");
+        }
+        int count = 0;
+        while(list != null) {
+            if (list.getValue() == null) {
+                throw new IllegalArgumentException("Value is null");
+            }
+            if (!pred.test(list.getValue())) {
+                return count;
+            }
+            list = list.getNext();
+            ++count;
+        }
         return 0;
     }
 
@@ -41,6 +54,18 @@ public class HomeWork {
      * @return сам элемент
      */
     public <T> T findNthElement(Node<T> list, int n) {
-        return null;
+        if (list == null || list.size() < n) {
+            throw new IllegalArgumentException("Empty collection");
+        }
+        int i = 0;
+        while (i < n) {
+            if (list.getValue() == null) {
+                throw new IllegalArgumentException("Value is null");
+            }
+            list = list.getNext();
+            i++;
+        }
+
+        return list.getValue();
     }
 }

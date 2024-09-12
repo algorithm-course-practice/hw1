@@ -31,4 +31,14 @@ public class Node<T> {
         emptyNode.setNext(newNode);
         return newNode;
     }
+
+    public int size() {
+        Node<T> current = this;
+        int count = 0;
+        while (current != null) {
+            ++count;
+            current = current.getNext();
+        }
+        return count;
+    }
 }
