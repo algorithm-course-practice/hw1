@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Iterator;
 import java.util.function.Predicate;
 
 /**
@@ -27,8 +28,14 @@ public class HomeWork {
      * @return количество узлов от 0 до N, где N позиция на которой первый раз условие вернуло fals
      */
     public <T> int partitionBy(Node<T> list, Predicate<T> pred) {
-        //TODO реализовать метод
-        return 0;
+        final int[] count = {0};
+        Iterator<T> iterator = list.iterator();
+        iterator.forEachRemaining(x -> {
+            if (pred.test((T) x)) {
+                count[0]++;
+            }
+        });
+        return count[0];
     }
 
     /**
@@ -41,6 +48,18 @@ public class HomeWork {
      * @return сам элемент
      */
     public <T> T findNthElement(Node<T> list, int n) {
-        return null;
+        Iterator<T> iterator = list.iterator();
+        if (n == 0){
+            return list.getValue();
+        }
+        T next = null;
+        for (int i = 0; i <= n; i++) {
+            if (iterator.hasNext()){
+                next = iterator.next();
+            } else {
+                throw new IndexOutOfBoundsException();
+            }
+        }
+        return next;
     }
 }
