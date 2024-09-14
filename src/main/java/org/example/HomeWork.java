@@ -48,6 +48,18 @@ public class HomeWork {
      * @return сам элемент
      */
     public <T> T findNthElement(Node<T> list, int n) {
-        return null;
+        Iterator<T> iterator = list.iterator();
+        if (n == 0){
+            return list.getValue();
+        }
+        T next = null;
+        for (int i = 0; i <= n; i++) {
+            if (iterator.hasNext()){
+                next = iterator.next();
+            } else {
+                throw new IndexOutOfBoundsException();
+            }
+        }
+        return next;
     }
 }

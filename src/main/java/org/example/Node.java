@@ -1,12 +1,10 @@
 package org.example;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 
 /**
@@ -15,9 +13,8 @@ import java.util.function.Predicate;
  *
  * @param <T>
  */
-@Getter
-@Setter
-public class Node<T> implements Iterable<T>{
+@Data
+public class Node<T> implements Iterable<T> {
 
     private T value;
 
@@ -42,7 +39,7 @@ public class Node<T> implements Iterable<T>{
         return new NodeIterator<>(this);
     }
 
-    private static class NodeIterator<T> implements Iterator<T>{
+    private static class NodeIterator<T> implements Iterator<T> {
         private Node<T> current;
 
         public NodeIterator(Node<T> startNode) {
@@ -56,7 +53,7 @@ public class Node<T> implements Iterable<T>{
 
         @Override
         public T next() {
-            if (!hasNext()){
+            if (!hasNext()) {
                 throw new NoSuchElementException();
             }
             T value = current.getValue();
@@ -66,7 +63,7 @@ public class Node<T> implements Iterable<T>{
 
         @Override
         public void forEachRemaining(Consumer<? super T> action) {
-            while (hasNext()){
+            while (hasNext()) {
                 action.accept(next());
             }
         }
