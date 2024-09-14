@@ -1,6 +1,8 @@
 package org.example;
 
+import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.StreamSupport;
 
 /**
  * Сигнатуры методов в данном классе не менять
@@ -27,8 +29,11 @@ public class HomeWork {
      * @return количество узлов от 0 до N, где N позиция на которой первый раз условие вернуло fals
      */
     public <T> int partitionBy(Node<T> list, Predicate<T> pred) {
-        //TODO реализовать метод
-        return 0;
+        if(pred == null) throw new IllegalArgumentException("Predicate cannot be null");
+        if(list == null) throw new IllegalArgumentException("List cannot be null");
+        IterableNode<T> nodes = new IterableNode<>(list);
+        return (int) StreamSupport.stream(nodes.spliterator(), false).filter(pred).count();
+
     }
 
     /**
@@ -41,6 +46,10 @@ public class HomeWork {
      * @return сам элемент
      */
     public <T> T findNthElement(Node<T> list, int n) {
-        return null;
+        if(list == null) throw new IllegalArgumentException("List cannot be null");
+        if(n <= 0) throw new IllegalArgumentException("N must be greater than 0");
+        IterableNode<T> iterableNode = new IterableNode<>(list);
+        Optional<T> any = StreamSupport.stream(iterableNode.spliterator(), false).skip(n).findAny();
+        return any.orElseThrow(() -> new IllegalArgumentException("Nth element not found"));
     }
 }
